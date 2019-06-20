@@ -1,0 +1,19 @@
+<div class="entry">
+    <div class="entry__heading">
+        <div class="entry__title">
+            {{entry.data.title | sliceStr : 60}}
+        </div>
+        <div class="entry__thumbnail"
+             *ngIf="entry.data.thumbnail_height && entry.data.thumbnail_width"
+        >
+            <img [src]="sanitizer.bypassSecurityTrustResourceUrl(entry.data.thumbnail)" alt="">
+        </div>
+        <div class="entry__thumbnail"
+             *ngIf="!entry.data.thumbnail_height || !entry.data.thumbnail_width"
+        >
+            <img src="assets/no-image.png" alt="">
+        </div>
+    </div>
+
+    <p (click)="userSelect.emit()">Details >></p>
+</div>
