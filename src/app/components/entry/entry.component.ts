@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { FeedEntry } from '../../models';
@@ -8,15 +8,11 @@ import { FeedEntry } from '../../models';
     templateUrl: './entry.component.html',
     styleUrls: ['./entry.component.scss']
 })
-export class EntryComponent implements OnInit {
+export class EntryComponent {
     @Input() entry: FeedEntry;
     @Output() userSelect: EventEmitter<void> = new EventEmitter();
 
     constructor(public sanitizer: DomSanitizer) {
-    }
-
-    ngOnInit() {
-        console.log(this.entry);
     }
 
 }

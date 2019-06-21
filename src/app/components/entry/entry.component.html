@@ -14,6 +14,27 @@
             <img src="assets/no-image.png" alt="">
         </div>
     </div>
+    <div>
+        <b>Created: </b> {{entry.data.created | date : 'd.MM.y'}}
+    </div>
+    <div>
+        <b>Comments: </b> {{entry.data.num_comments}}
+    </div>
+    <div>
+        <b>Author: </b> {{entry.data.num_comments}}
+    </div>
+    <div>
+        <b>Score: </b> {{entry.data.num_comments}}
+    </div>
+    <div class="entry__links">
 
-    <p (click)="userSelect.emit()">Details >></p>
+        <div class="entry__link" (click)="userSelect.emit()">
+            <a> Details </a>
+        </div>
+        <div class="entry__link">
+            <a [href]="sanitizer.bypassSecurityTrustUrl(entry.data.url)"
+               target="_blank"
+            >See original</a>
+        </div>
+    </div>
 </div>

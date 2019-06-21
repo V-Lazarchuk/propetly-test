@@ -1,8 +1,34 @@
+<div class="row justify-content-center">
+    <div class="col-5 col-md-4 col-xl-3">
+        <div class="form-group row align-items-center">
+            <label class="col-6 col-form-label text-right">Entries on page:</label>
+            <div class="col-6">
+                <select class="form-control"
+                        [(ngModel)]="entriesPerPage"
+                        (change)="checkItemsLength()"
+                >
+                    <option *ngFor="let num of [5, 10, 25]"
+                            [value]="num"
+                    >
+                        {{ num }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
-    <div class="col-12 col-md-6 col-lg-3"
+    <div class="col-12 col-md-6 col-lg-4"
          *ngFor="let item of entries">
         <app-entry [entry]="item"
                    (userSelect)="setActiveEntry(item)"
         ></app-entry>
     </div>
 </div>
+
+<app-pagination *ngIf="showPagination()"
+                [activePage]="activePage"
+                [countPages]="getCountPages()"
+                (goToPage)="setActivePage($event)"
+></app-pagination>

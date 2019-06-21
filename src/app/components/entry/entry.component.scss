@@ -1,6 +1,6 @@
 .entry {
     padding: 16px;
-    background-color: lightgray;
+    background-color: #f3f3f3;
     border-radius: 5px;
     position: relative;
     cursor: pointer;
@@ -10,6 +10,7 @@
     flex-flow: column nowrap;
     &__heading {
         display: flex;
+        font-size: 18px;
     }
     &__title {
         font-weight: 600;
@@ -20,15 +21,23 @@
         top: 10px;
         right: 10px;
         flex: 0 0 30%;
-        max-height: 80px;
+        height: 80px;
         overflow: hidden;
+        text-align: right;
         img {
             max-width: 100%;
             max-height: 100%;
         }
     }
-    &__detailsLink {
-        margin-top: auto;
+    &__links {
+        margin-top: 30px;
+    }
+    &__link {
         margin-bottom: 0;
+        color: #007bff;
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
     }
 }

@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import {
     ListEntriesComponent,
     EntryDetailsComponent,
-    EntryComponent
+    EntryComponent,
+    PaginationComponent
 } from './components';
 import { SliceStrPipe } from './pipes';
 
@@ -18,7 +19,8 @@ import { SliceStrPipe } from './pipes';
         ListEntriesComponent,
         EntryComponent,
         EntryDetailsComponent,
-        SliceStrPipe
+        SliceStrPipe,
+        PaginationComponent
     ],
     imports: [
         BrowserModule,

@@ -1,4 +1,24 @@
-<p>
-  entry-details works!
-</p>
-{{entry | json}}
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-xl-2">
+            <button class="btn btn-block btn-outline-dark"
+                    (click)="goBack()"
+            >
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="!!entry">
+    <div class="row">
+        <h1>{{entry.data.title}}</h1>
+    </div>
+    <div class="row">
+        <h3>
+            Author: {{entry.data.author}}
+        </h3>
+    </div>
+    <div class="row">
+        <p >{{entry.data.selftext}}</p>
+    </div>
+</div>

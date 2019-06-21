@@ -7,4 +7,5 @@ import { FeedEntry } from '../models';
 })
 export class ActiveItemsService {
     activeEntry: BehaviorSubject<FeedEntry> = new BehaviorSubject(null);
+    activePageNumber: BehaviorSubject<number> = new BehaviorSubject(null);
 }

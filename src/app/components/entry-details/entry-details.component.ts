@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
 import { FeedEntry } from '../../models';
 import { ActiveItemsService } from '../../services/active-items.service';
 
@@ -10,16 +12,21 @@ import { ActiveItemsService } from '../../services/active-items.service';
 export class EntryDetailsComponent implements OnInit {
     entry: FeedEntry;
 
-    constructor(private activeItems: ActiveItemsService) {
+    constructor(private activeItems: ActiveItemsService,
+                private location: Location) {
     }
 
     ngOnInit(): void {
         this.activeItems.activeEntry
-            .subscribe( item => {
+            .subscribe(item => {
                 if (item) {
                     this.entry = item;
                 }
-            })
+            });
+    }
+
+    goBack(): void {
+        this.location.back();
     }
 
 }

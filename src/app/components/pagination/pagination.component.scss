@@ -1,0 +1,19 @@
+a:not([href]):not([tabindex]) {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.page-item {
+    user-select: none;
+    &.disabled {
+        pointer-events: none;
+        a {
+            color: lightgray;
+        }
+    }
+    &.active {
+        a:not([href]):not([tabindex]) {
+            color: white;
+        }
+    }
+}
