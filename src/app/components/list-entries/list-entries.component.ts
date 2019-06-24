@@ -26,7 +26,16 @@ export class ListEntriesComponent implements OnInit {
     ngOnInit(): void {
         this.getActivePageNumber()
             .then(() => this.getAllEntriesNames())
-            .then(() => this.getEntries());
+            .then(() => this.getEntries(this.entriesPerPage))
+            .then(response => {
+                this.entries = response;
+            })
+            /**
+             * crutch for incorrect entries length
+             */
+            .then(() => {
+                this.checkItemsLength();
+            });
     }
 
     getAllEntriesNames(): Promise<void> {
@@ -48,15 +57,13 @@ export class ListEntriesComponent implements OnInit {
         return Math.ceil(this.allEntriesNames.length / this.entriesPerPage);
     }
 
-    getEntries(): void {
-        this.httpCommon.getListEntries(this.subRedditName,
-            {limit: this.entriesPerPage, after: this.getLastItemName(this.activePage)}
-        ).subscribe(response => {
-            this.entries = response.data.children;
-            /**
-             * crutch for array length
-             */
-            this.checkItemsLength();
+    getEntries(limit: number, after?: string): Promise<FeedEntry[]> {
+        return new Promise(resolve => {
+            this.httpCommon.getListEntries(this.subRedditName,
+                {limit, after}
+            ).subscribe(response => {
+                resolve(response.data.children);
+            });
         });
     }
 
@@ -84,7 +91,10 @@ export class ListEntriesComponent implements OnInit {
 
     setActivePage(pageNumber: number): void {
         this.activePage = pageNumber;
-        this.getEntries();
+        this.getEntries(this.entriesPerPage, this.getLastItemName(this.activePage))
+            .then(response => {
+                this.entries = response;
+            });
     }
 
     showPagination(): boolean {
@@ -99,7 +109,10 @@ export class ListEntriesComponent implements OnInit {
         if (this.entries.length > this.entriesPerPage) {
             this.entries = this.entries.slice(0, this.entriesPerPage);
         } else if (this.entries.length < this.entriesPerPage) {
-            this.getEntries();
+            this.getEntries(this.entriesPerPage - this.entries.length, this.entries[this.entries.length - 1].data.name)
+                .then(response => {
+                    this.entries = this.entries.concat(response);
+                });
         }
     }
 
