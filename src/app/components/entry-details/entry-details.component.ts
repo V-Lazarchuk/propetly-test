@@ -10,13 +10,13 @@ import { ActiveItemsService } from '../../services/active-items.service';
     styleUrls: ['./entry-details.component.scss']
 })
 export class EntryDetailsComponent implements OnInit {
-    entry: FeedEntry;
+    public entry: FeedEntry;
 
     constructor(private activeItems: ActiveItemsService,
                 private location: Location) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.activeItems.activeEntry
             .subscribe(item => {
                 if (item) {
@@ -25,7 +25,10 @@ export class EntryDetailsComponent implements OnInit {
             });
     }
 
-    goBack(): void {
+    /**
+     * Go back to list entries
+     */
+    public goBack(): void {
         this.location.back();
     }
 

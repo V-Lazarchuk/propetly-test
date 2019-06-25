@@ -11,11 +11,11 @@ import { ActiveItemsService } from '../../services/active-items.service';
     styleUrls: ['./list-entries.component.scss']
 })
 export class ListEntriesComponent implements OnInit {
-    entries: FeedEntry[];
-    allEntriesNames: string[] = [];
-    subRedditName: string = 'space';
-    activePage: number;
-    entriesPerPage: number = 10;
+    public entries: FeedEntry[];
+    private allEntriesNames: string[] = [];
+    private subRedditName: string = 'space';
+    public activePage: number;
+    public entriesPerPage: number = 10;
 
     constructor(private httpCommon: HttpCommonService,
                 private activeItems: ActiveItemsService,
@@ -23,7 +23,7 @@ export class ListEntriesComponent implements OnInit {
                 private route: ActivatedRoute) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.getActivePageNumber()
             .then(() => this.getAllEntriesNames())
             .then(() => this.getEntries(this.entriesPerPage))
@@ -31,14 +31,17 @@ export class ListEntriesComponent implements OnInit {
                 this.entries = response;
             })
             /**
-             * crutch for incorrect entries length
+             * Fix response incorrect length
              */
             .then(() => {
                 this.checkItemsLength();
             });
     }
 
-    getAllEntriesNames(): Promise<void> {
+    /**
+     * Get all entries and save it's names to array for pagination
+     */
+    private getAllEntriesNames(): Promise<void> {
         return new Promise(resolve => {
             this.httpCommon.getListEntries(this.subRedditName, {limit: 150})
                 .subscribe(response => {
@@ -48,16 +51,28 @@ export class ListEntriesComponent implements OnInit {
         });
     }
 
-    setActiveEntry(entry: FeedEntry): void {
+    /**
+     * Set selected entry in service for prevent unnecessary requests when details component is loaded
+     * @param entry
+     */
+    private setActiveEntry(entry: FeedEntry): void {
         this.activeItems.activeEntry.next(entry);
         this.router.navigate([entry.data.name], {relativeTo: this.route});
     }
 
-    getCountPages(): number {
+    /**
+     * Get count pages for pagination
+     */
+    private getCountPages(): number {
         return Math.ceil(this.allEntriesNames.length / this.entriesPerPage);
     }
 
-    getEntries(limit: number, after?: string): Promise<FeedEntry[]> {
+    /**
+     * Get entries
+     * @param limit
+     * @param after
+     */
+    private getEntries(limit: number, after?: string): Promise<FeedEntry[]> {
         return new Promise(resolve => {
             this.httpCommon.getListEntries(this.subRedditName,
                 {limit, after}
@@ -67,7 +82,11 @@ export class ListEntriesComponent implements OnInit {
         });
     }
 
-    getLastItemName(pageNumber: number): string {
+    /**
+     * Get last item name for 'after' param in 'getEntries' method
+     * @param pageNumber
+     */
+    private getLastItemName(pageNumber: number): string {
         if (pageNumber === 1) {
             return ``;
         } else {
@@ -76,7 +95,10 @@ export class ListEntriesComponent implements OnInit {
         }
     }
 
-    getActivePageNumber(): Promise<void> {
+    /**
+     * Get active page number from service after return from 'details' component
+     */
+    private getActivePageNumber(): Promise<void> {
         return new Promise(resolve => {
             this.activeItems.activePageNumber.subscribe(num => {
                 if (num) {
@@ -89,7 +111,11 @@ export class ListEntriesComponent implements OnInit {
         });
     }
 
-    setActivePage(pageNumber: number): void {
+    /**
+     * Set active page number in service in each page changing
+     * @param pageNumber
+     */
+    public setActivePage(pageNumber: number): void {
         this.activePage = pageNumber;
         this.getEntries(this.entriesPerPage, this.getLastItemName(this.activePage))
             .then(response => {
@@ -97,7 +123,10 @@ export class ListEntriesComponent implements OnInit {
             });
     }
 
-    showPagination(): boolean {
+    /**
+     * Conditions for pagination
+     */
+    public get showPagination(): boolean {
         return this.allEntriesNames
             && this.entries
             && this.allEntriesNames.length !== 0
@@ -105,7 +134,10 @@ export class ListEntriesComponent implements OnInit {
             && this.entries.length !== 0;
     }
 
-    checkItemsLength() {
+    /**
+     * Slice entries array or get missing entries regard entries length and entries per page options
+     */
+    public checkItemsLength(): void {
         if (this.entries.length > this.entriesPerPage) {
             this.entries = this.entries.slice(0, this.entriesPerPage);
         } else if (this.entries.length < this.entriesPerPage) {

@@ -4,14 +4,13 @@
             {{entry.data.title | sliceStr : 60}}
         </div>
         <div class="entry__thumbnail"
-             *ngIf="entry.data.thumbnail_height && entry.data.thumbnail_width"
-        >
-            <img [src]="sanitizer.bypassSecurityTrustResourceUrl(entry.data.thumbnail)" alt="">
+             *ngIf="entry.data.thumbnail_height && entry.data.thumbnail_width">
+            <img [src]="sanitizer.bypassSecurityTrustResourceUrl(entry.data.thumbnail)">
         </div>
         <div class="entry__thumbnail"
-             *ngIf="!entry.data.thumbnail_height || !entry.data.thumbnail_width"
-        >
-            <img src="assets/no-image.png" alt="">
+             *ngIf="!entry.data.thumbnail_height || !entry.data.thumbnail_width">
+            <img src="assets/no-image.png"
+                 alt="No Image">
         </div>
     </div>
     <div>
@@ -27,14 +26,15 @@
         <b>Score: </b> {{entry.data.num_comments}}
     </div>
     <div class="entry__links">
-
-        <div class="entry__link" (click)="userSelect.emit()">
+        <div class="entry__link"
+             (click)="userSelect.emit()">
             <a> Details </a>
         </div>
         <div class="entry__link">
             <a [href]="sanitizer.bypassSecurityTrustUrl(entry.data.url)"
-               target="_blank"
-            >See original</a>
+               target="_blank">
+                See original
+            </a>
         </div>
     </div>
 </div>

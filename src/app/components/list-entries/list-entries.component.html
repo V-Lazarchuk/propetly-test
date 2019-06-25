@@ -5,11 +5,9 @@
             <div class="col-6">
                 <select class="form-control"
                         [(ngModel)]="entriesPerPage"
-                        (change)="checkItemsLength()"
-                >
+                        (change)="checkItemsLength()">
                     <option *ngFor="let num of [5, 10, 25]"
-                            [value]="num"
-                    >
+                            [value]="num">
                         {{ num }}
                     </option>
                 </select>
@@ -22,13 +20,13 @@
     <div class="col-12 col-md-6 col-lg-4"
          *ngFor="let item of entries">
         <app-entry [entry]="item"
-                   (userSelect)="setActiveEntry(item)"
-        ></app-entry>
+                   (userSelect)="setActiveEntry(item)">
+        </app-entry>
     </div>
 </div>
 
-<app-pagination *ngIf="showPagination()"
+<app-pagination *ngIf="showPagination"
                 [activePage]="activePage"
                 [countPages]="getCountPages()"
-                (goToPage)="setActivePage($event)"
-></app-pagination>
+                (goToPage)="setActivePage($event)">
+</app-pagination>

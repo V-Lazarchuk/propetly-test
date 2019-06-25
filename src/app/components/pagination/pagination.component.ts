@@ -8,19 +8,23 @@ import { ActiveItemsService } from '../../services/active-items.service';
     styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnChanges {
-    @Input() activePage: number;
-    @Input() countPages: number;
-    @Output() goToPage: EventEmitter<number> = new EventEmitter();
-    pagesArray: number[];
+    @Input() public activePage: number;
+    @Input() private countPages: number;
+    @Output() public goToPage: EventEmitter<number> = new EventEmitter();
+    public pagesArray: number[];
 
     constructor(private activeItems: ActiveItemsService) {
     }
 
-    ngOnChanges() {
+    public ngOnChanges() {
         this.pagesArray = new Array(this.countPages);
     }
 
-    setActivePage(pageNumber: number) {
+    /**
+     * Emit event with active page number to parent component
+     * @param pageNumber
+     */
+    public setActivePage(pageNumber: number) {
         this.activeItems.activePageNumber.next(pageNumber);
         this.goToPage.emit(pageNumber);
     }

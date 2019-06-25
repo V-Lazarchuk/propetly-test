@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-6 col-xl-2">
             <button class="btn btn-block btn-outline-dark"
-                    (click)="goBack()"
-            >
+                    (click)="goBack()">
                 Back
             </button>
         </div>
     </div>
 </div>
-<div class="container" *ngIf="!!entry">
+<div class="container"
+     *ngIf="!!entry">
     <div class="row">
         <h1>{{entry.data.title}}</h1>
     </div>
@@ -19,6 +19,6 @@
         </h3>
     </div>
     <div class="row">
-        <p >{{entry.data.selftext}}</p>
+        <p>{{entry.data.selftext}}</p>
     </div>
 </div>

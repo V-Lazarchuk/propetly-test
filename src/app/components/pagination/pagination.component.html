@@ -2,8 +2,7 @@
     <ul class="pagination justify-content-center">
         <li class="page-item"
             [ngClass]="{'disabled': activePage === 1}"
-            (click)="setActivePage(activePage - 1)"
-        >
+            (click)="setActivePage(activePage - 1)">
             <a class="page-link">
                 <span aria-hidden="true">&laquo;</span>
             </a>
@@ -11,14 +10,12 @@
         <li class="page-item"
             *ngFor="let item of pagesArray; let i = index"
             [ngClass]="{'active': i === activePage - 1}"
-            (click)="setActivePage(i + 1)"
-        >
+            (click)="setActivePage(i + 1)">
             <a class="page-link">{{i + 1}}</a>
         </li>
         <li class="page-item"
             [ngClass]="{'disabled': activePage === pagesArray.length}"
-            (click)="setActivePage(activePage + 1)"
-        >
+            (click)="setActivePage(activePage + 1)">
             <a class="page-link">
                 <span aria-hidden="true">&raquo;</span>
             </a>

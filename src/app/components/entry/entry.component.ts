@@ -9,8 +9,8 @@ import { FeedEntry } from '../../models';
     styleUrls: ['./entry.component.scss']
 })
 export class EntryComponent {
-    @Input() entry: FeedEntry;
-    @Output() userSelect: EventEmitter<void> = new EventEmitter();
+    @Input() public entry: FeedEntry;
+    @Output() public userSelect: EventEmitter<void> = new EventEmitter();
 
     constructor(public sanitizer: DomSanitizer) {
     }
