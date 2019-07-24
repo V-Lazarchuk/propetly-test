@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FeedEntry } from '../../models';
 import { HttpCommonService } from '../../services';
 import { ActiveItemsService } from '../../services/active-items.service';
+import { tick } from '@angular/core/testing';
 
 @Component({
     selector: 'app-list-entries',

@@ -1,10 +1,10 @@
 import { FeedEntry } from './feed-entrie';
 
 export interface ListFeedEntries {
-    kind: string;
+    kind?: string;
     data: {
-        modhash: string;
-        dist: number;
+        modhash?: string;
+        dist?: number;
         children: FeedEntry[];
     };
 }
